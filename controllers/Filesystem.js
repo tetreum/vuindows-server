@@ -1,5 +1,7 @@
 const fs = require('fs');
 const path = require('path');
+const os = require('os');
+const child = require('child_process');
 
 class Filesystem {
     async mv (sourcePath, destinationPath, overwrite = false) {
@@ -37,6 +39,23 @@ class Filesystem {
 
     ls (directory) {
         return new Promise((resolve, reject) => {
+
+            // windows doesnt have a "root folder" so we list its drives instead
+            if (directory === "/" && os.platform() === "win32") {
+                this.getWindowsDrives().then(drives => {
+                    const list = [];
+                    drives.forEach(drive => {
+                        list.push({
+                            directory: true,
+                            name: drive,
+                            path: drive + path.sep,
+                        });
+                    });
+                    resolve(list);
+                });
+                return;
+            }
+
             fs.readdir(directory, {withFileTypes: false}, (err, files) => {
                 if (err) {
                     return reject(err);
@@ -61,6 +80,21 @@ class Filesystem {
                         resolve(list);
                     }
                 });
+            });
+        });
+    }
+
+    getWindowsDrives () {
+        return new Promise((resolve, reject) => {
+            child.exec('wmic logicaldisk get name', (error, stdout) => {
+                if (error) {
+                    return reject(error);
+                }
+                resolve(
+                    stdout.split('\r\r\n')
+                        .filter(value => /[A-Za-z]:/.test(value))
+                        .map(value => value.trim())
+                );
             });
         });
     }
