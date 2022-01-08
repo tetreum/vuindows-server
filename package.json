@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "better-sqlite3": "^7.4.6",
+    "jsonwebtoken": "^8.5.1",
+    "move-file": "^3.0.0",
+    "websocket": "^1.0.34"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
