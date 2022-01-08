@@ -19,9 +19,12 @@ class Filesystem {
             throw new Error(`The destination file exists: ${destinationPath}`);
         }
 
-        fs.mkdirSync(path.dirname(destinationPath), {
-            recursive: true,
-        });
+        // it's not just a rename
+        if (parsedSource.dir !== parsedDestination.dir) {
+            fs.mkdirSync(path.dirname(destinationPath), {
+                recursive: true,
+            });
+        }
     
         try {
             fs.renameSync(sourcePath, destinationPath);
