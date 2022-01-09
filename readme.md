@@ -6,8 +6,12 @@
 
 Handles Vuindows auth & commands, letting you manage a windows or linux pc from your desktop using Vuindows UI.
 
+## Vuindows client
+
+It can be found on the following branch https://github.com/tetreum/Vuindows/tree/remote-controller
+
 ## Working apps:
-- FileExplorer -> Directory browsing and file moving
+- FileExplorer -> Browse directory, move file, create folder, remove, rename
 
 ## Documentation
 
