@@ -27,6 +27,11 @@ class Database {
         return this.db.prepare(query).run(...arguments);
     }
 
+    remove (query) {
+        [].shift.apply(arguments);
+        return this.db.prepare(query).run(...arguments);
+    }
+
     setup () {
         const tables = this.first(`SELECT name FROM sqlite_schema WHERE type ='table' AND name NOT LIKE 'sqlite_%'`);
 
@@ -37,6 +42,7 @@ class Database {
         console.log("Setting up db");
 
         this.setupUsers();
+        this.setupFavorites();
     }
 
     async setupUsers () {
@@ -54,6 +60,18 @@ class Database {
         const password = await bcrypt.hash("admin", Config.salt);
 
         this.insert("INSERT INTO users (username, password, created_at) VALUES ('admin', '" + password + "', '" + this.currentDate() + "')");
+    }
+
+    async setupFavorites () {
+        this.db.exec(`
+            CREATE TABLE IF NOT EXISTS 'fs_favorites' (
+                'user' INTEGER NOT NULL,
+                'name' VARCHAR(150) NOT NULL,
+                'path' VARCHAR(250) NOT NULL,
+                'created_at' DATETIME NOT NULL,
+                UNIQUE ('user','path')
+            );
+        `);
     }
 
     currentDate () {

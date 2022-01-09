@@ -2,8 +2,38 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 const child = require('child_process');
+const DB = require('../database.js');
+const Controller = require('./SocketController.js');
 
-class Filesystem {
+class Filesystem extends Controller {
+    getFavorites () {
+        return new Promise((resolve, reject) => {
+            const db = new DB();
+            const entries = db.get('SELECT * FROM fs_favorites WHERE user = ?', this.user.id);
+            resolve(entries);
+        });
+    }
+
+    toggleFavorite (name, path) {
+        return new Promise((resolve, reject) => {
+            if (!name || !path) {
+                throw new TypeError('missing required params');
+            }
+            const db = new DB();
+            const entry = db.first('SELECT * FROM fs_favorites WHERE user = ? AND path = ?', this.user.id, path);
+            
+            if (!entry) {
+                db.insert("INSERT INTO fs_favorites (user, name, path, created_at) VALUES (?, ?, ?, ?)", [
+                    this.user.id, name, path, db.currentDate()
+                ]);
+            } else {
+                db.remove("DELETE FROM fs_favorites WHERE user = ? AND path = ?", [
+                    this.user.id, path
+                ]);
+            }
+            resolve(true);
+        });
+    }
     rm (path) {
         return new Promise((resolve, reject) => {
             if (!path) {

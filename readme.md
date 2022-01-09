@@ -11,7 +11,7 @@ Handles Vuindows auth & commands, letting you manage a windows or linux pc from 
 It can be found on the following branch https://github.com/tetreum/Vuindows/tree/remote-controller
 
 ## Working apps:
-- FileExplorer -> Browse directory, move file, create folder, remove, rename
+- FileExplorer -> Browse directory, move file, create folder, remove, rename, context/left menu, favorite
 
 ## Documentation
 

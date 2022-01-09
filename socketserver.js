@@ -37,7 +37,7 @@ class SocketServer {
             this.connection.on('message', (message) => {
                 if (message.type === 'utf8') {
                     console.log('Received Message: ' + message.utf8Data);
-                    this.parseRequest(JSON.parse(message.utf8Data));
+                    this.parseRequest(user, JSON.parse(message.utf8Data));
                 }
                 else if (message.type === 'binary') {
                     console.log('Received Binary Message of ' + message.binaryData.length + ' bytes');
@@ -50,20 +50,26 @@ class SocketServer {
         });
     }
 
-    parseRequest (request) {
+    parseRequest (user, request) {
         let promise;
         switch (request._action) {
             case "ls":
-                promise = (new Filesystem()).ls(request.folder);
+                promise = (new Filesystem(user)).ls(request.folder);
                 break;
             case "mv":
-                promise = (new Filesystem()).mv(request.origin, request.destination);
+                promise = (new Filesystem(user)).mv(request.origin, request.destination);
                 break;
             case "mkdir":
-                promise = (new Filesystem()).mkdir(request.path);
+                promise = (new Filesystem(user)).mkdir(request.path);
                 break;
             case "rm":
-                promise = (new Filesystem()).rm(request.path);
+                promise = (new Filesystem(user)).rm(request.path);
+                break;
+            case "file_explorer/favorites/toggle":
+                promise = (new Filesystem(user)).toggleFavorite(request.name, request.path);
+                break;
+            case "file_explorer/favorites/list":
+                promise = (new Filesystem(user)).getFavorites();
                 break;
             default:
                 this.reply(request, 'command not found', 1);
