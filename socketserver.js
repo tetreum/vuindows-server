@@ -59,6 +59,12 @@ class SocketServer {
             case "mv":
                 promise = (new Filesystem()).mv(request.origin, request.destination);
                 break;
+            case "mkdir":
+                promise = (new Filesystem()).mkdir(request.path);
+                break;
+            case "rm":
+                promise = (new Filesystem()).rm(request.path);
+                break;
             default:
                 this.reply(request, 'command not found', 1);
                 return;

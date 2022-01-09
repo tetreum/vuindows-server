@@ -4,6 +4,34 @@ const os = require('os');
 const child = require('child_process');
 
 class Filesystem {
+    rm (path) {
+        return new Promise((resolve, reject) => {
+            if (!path) {
+                throw new TypeError('folder is required');
+            }
+
+            if (fs.statSync(path).isDirectory()) {
+                fs.rmdirSync(path);
+            } else {
+                fs.rmSync(path);
+            }
+
+            resolve(true);
+        });
+    }
+    mkdir (folder) {
+        return new Promise((resolve, reject) => {
+            if (!folder) {
+                throw new TypeError('folder is required');
+            }
+
+            fs.mkdirSync(folder, {
+                recursive: true,
+            });
+
+            resolve(this.statFile(folder));
+        });
+    }
     async mv (sourcePath, destinationPath, overwrite = false) {
         if (!sourcePath || !destinationPath) {
             throw new TypeError('`sourcePath` and `destinationPath` required');
@@ -40,6 +68,18 @@ class Filesystem {
         }
     }
 
+    statFile (filePath) {
+        const parsedPath = path.parse(filePath);
+        const stats = fs.statSync(filePath);
+
+        let obj = JSON.parse(JSON.stringify(stats));
+        obj.directory = stats.isDirectory();
+        obj.name = parsedPath.base;
+        obj.path = filePath;
+
+        return obj;
+    }
+
     ls (directory) {
         return new Promise((resolve, reject) => {
 
@@ -69,12 +109,7 @@ class Filesystem {
                 files.forEach((fileName, i) => {
                     try {
                         const filePath = path.join(directory, fileName);
-                        const stats = fs.statSync(filePath);
-
-                        let obj = JSON.parse(JSON.stringify(stats));
-                        obj.directory = stats.isDirectory();
-                        obj.name = fileName;
-                        obj.path = filePath;
+                        let obj = this.statFile(filePath);
                         list.push(obj);
                     } catch (e) {
                     }
