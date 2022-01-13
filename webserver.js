@@ -21,6 +21,7 @@ class WebServer  {
             "html" : "text/html",
             "htm" : "text/html",
             "js" : "application/x-javascript",
+            'ttf' : 'font/ttf'
         };
 
         this.server = http.createServer((req, res) => {
