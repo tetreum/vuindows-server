@@ -6,9 +6,12 @@
 
 Handles Vuindows auth & commands, letting you manage a windows or linux pc from your desktop using Vuindows UI.
 
-## Vuindows client
+## Install
 
-It can be found on the following branch https://github.com/tetreum/Vuindows/tree/remote-controller
+1. Download the latest version from [https://github.com/tetreum/vuindows-server/releases/latest](https://github.com/tetreum/vuindows-server/releases/latest)
+2. `npm i`
+3. `npm run dev`
+4. Access [http://localhost:8081](http://localhost:8081)
 
 ## Working apps:
 - FileExplorer -> Browse directory, move file, create folder, remove, rename, context/left menu, favorite
