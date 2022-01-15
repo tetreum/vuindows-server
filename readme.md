@@ -4,14 +4,14 @@
 
 (Click for full screen preview)
 
-Handles Vuindows auth & commands, letting you manage a windows or linux pc from your desktop using Vuindows UI.
+Handles Vuindows auth & commands, letting you manage a windows or linux pc from your desktop using Vuindows UI + HTTPS.
 
 ## Install
 
 1. Download the latest version from [https://github.com/tetreum/vuindows-server/releases/latest](https://github.com/tetreum/vuindows-server/releases/latest)
 2. `npm i`
-3. `npm run dev`
-4. Access [http://localhost:8081](http://localhost:8081)
+3. `npm run production`
+4. Access [https://localhost:8081](https://localhost:8081)
 
 ## Working apps:
 - FileExplorer -> Browse directory, move file, create folder, remove, rename, context/left menu, favorite

@@ -2,14 +2,16 @@
   "dependencies": {
     "bcrypt": "^5.0.1",
     "better-sqlite3": "^7.4.6",
+    "default-gateway": "^6.0.3",
     "jsonwebtoken": "^8.5.1",
     "move-file": "^3.0.0",
+    "node-forge": "^1.2.1",
     "websocket": "^1.0.34"
   },
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "production": "nodemon index.js --production"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

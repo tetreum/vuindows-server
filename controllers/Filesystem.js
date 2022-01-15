@@ -6,6 +6,14 @@ const DB = require('../database.js');
 const Controller = require('./SocketController.js');
 
 class Filesystem extends Controller {
+    getFile (path) {
+        return new Promise((resolve, reject) => {
+            fs.readFile(path).then(contents => {
+                resolve(contents);
+            });
+        });
+    }
+
     getFavorites () {
         return new Promise((resolve, reject) => {
             const db = new DB();

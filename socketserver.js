@@ -71,6 +71,9 @@ class SocketServer {
             case "file_explorer/favorites/list":
                 promise = (new Filesystem(user)).getFavorites();
                 break;
+            case "file_explorer/get":
+                promise = (new Filesystem(user)).getFile();
+                break;
             default:
                 this.reply(request, 'command not found', 1);
                 return;
