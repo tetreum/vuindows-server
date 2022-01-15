@@ -11,7 +11,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "production": "nodemon index.js --production"
+    "production": "nodemon index.js --production",
+    "pm2": "pm2 start index.js --  --production"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

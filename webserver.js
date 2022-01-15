@@ -113,6 +113,9 @@ class WebServer  {
                 controller.login(data.username, data.password);
                 break;
             default:
+                if (route.includes("/../")) { // hack attempt
+                    return;
+                }
                 fs.readFile("./client/" + route)
                     .then(contents => {
                         res.setHeader("Content-Type", this.getFileContentType(route));

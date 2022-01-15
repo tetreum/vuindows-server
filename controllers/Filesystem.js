@@ -77,9 +77,7 @@ class Filesystem extends Controller {
         const parsedSource = path.parse(sourcePath);
         const parsedDestination = path.parse(destinationPath);
 
-        if (parsedSource.ext.length > 0 && parsedDestination.ext.length == 0) {
-            destinationPath = path.join(destinationPath, parsedSource.base);
-        }
+        destinationPath = path.join(destinationPath, parsedSource.base);
 
         if (!overwrite && fs.existsSync(destinationPath)) {
             throw new Error(`The destination file exists: ${destinationPath}`);

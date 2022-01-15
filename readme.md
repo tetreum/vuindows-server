@@ -15,6 +15,8 @@ Handles Vuindows auth & commands, letting you manage a windows or linux pc from 
 
 ## Working apps:
 - FileExplorer -> Browse directory, move file, create folder, remove, rename, context/left menu, favorite
+- PhotoViewer
+- Notepad
 
 ## Documentation
 
