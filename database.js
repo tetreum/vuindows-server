@@ -22,6 +22,11 @@ class Database {
         return this.db.prepare(query).all(...arguments);
     }
 
+    update (query) {
+        [].shift.apply(arguments);
+        return this.db.prepare(query).run(...arguments);
+    }
+
     insert (query) {
         [].shift.apply(arguments);
         return this.db.prepare(query).run(...arguments);

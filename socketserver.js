@@ -74,6 +74,9 @@ class SocketServer {
             case "file_explorer/get":
                 promise = (new Filesystem(user)).getFile();
                 break;
+            case "account/change":
+                promise = (new User(null, null, user)).change(request.username, request.password);
+                break;
             default:
                 this.reply(request, 'command not found', 1);
                 return;

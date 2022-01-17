@@ -6,10 +6,21 @@ const os = require('os');
 
 
 class User extends Controller {
+
+    change (username, password) {
+        return new Promise(async (resolve, reject) => {
+            password = await bcrypt.hash(password, Config.salt);
+
+            this.db.update('UPDATE users SET username = ?, password = ? WHERE id = ?', username, password, this.data.id);
+
+            resolve(true);
+        });
+    }
+
     async login (username, password) {
         password = await bcrypt.hash(password, Config.salt);
 
-        const user = this.db.first('SELECT * FROM users WHERE username = ? AND password = ?', username, password);
+        let user = this.db.first('SELECT * FROM users WHERE username = ? AND password = ?', username, password);
 
         if (user === undefined) {
             return this.error("login failed", 1, 400);
@@ -23,9 +34,15 @@ class User extends Controller {
         user.token = token;
         user.platform = os.platform();
 
-        delete(user.password);
+        user = this.clearUser(user);
 
         return this.reply(user);
+    }
+
+    clearUser (user) {
+        delete(user.password);
+
+        return user;
     }
 
     static validateToken (token) {
