@@ -70,6 +70,18 @@ class Filesystem extends Controller {
             resolve(this.statFile(folder));
         });
     }
+    async rename (sourcePath, destinationPath, overwrite = false) {
+        if (!sourcePath || !destinationPath) {
+            throw new TypeError('`sourcePath` and `destinationPath` required');
+        }
+
+        if (!overwrite && fs.existsSync(destinationPath)) {
+            throw new Error(`The destination file exists: ${destinationPath}`);
+        }
+
+        fs.renameSync(sourcePath, destinationPath);
+        return true;
+    }
     async mv (sourcePath, destinationPath, overwrite = false) {
         if (!sourcePath || !destinationPath) {
             throw new TypeError('`sourcePath` and `destinationPath` required');

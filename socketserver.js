@@ -59,6 +59,9 @@ class SocketServer {
             case "mv":
                 promise = (new Filesystem(user)).mv(request.origin, request.destination);
                 break;
+            case "rename":
+                promise = (new Filesystem(user)).rename(request.origin, request.destination);
+                break;
             case "mkdir":
                 promise = (new Filesystem(user)).mkdir(request.path);
                 break;

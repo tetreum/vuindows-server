@@ -4,7 +4,7 @@
 
 (Click for full screen preview)
 
-Handles Vuindows auth & commands, letting you manage a windows or linux pc from your desktop using Vuindows UI + HTTPS.
+Handles [Vuindows](https://github.com/tetreum/vuindows-server/releases/latest) auth & commands, letting you manage a windows or linux pc from your desktop using Vuindows UI + HTTPS.
 
 ## Install
 
